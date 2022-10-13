@@ -1,7 +1,8 @@
 import { Button } from "@mantine/core";
+import AuthForm from "./components/AuthForm";
 
 function App() {
-  return <Button>Click me!</Button>;
+  return <AuthForm></AuthForm>;
 }
 
 export default App;
