@@ -2,7 +2,7 @@ import { collection, Firestore, getDoc, doc, setDoc } from "firebase/firestore";
 import { User } from "firebase/auth";
 import { UserType } from "./models/user";
 
-const writeUser = async (db: Firestore, firebaseUser: User) => {
+export const findUser = async (db: Firestore, firebaseUser: User) => {
   const id = firebaseUser.uid;
   let displayName: string | null = null;
 
