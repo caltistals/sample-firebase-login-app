@@ -8,7 +8,7 @@ export const findUser = async (db: Firestore, firebaseUser: User) => {
 
   let theUser: UserType | null = null;
   const userDoc = await getDoc(doc(collection(db, "users"), id));
-  if (!userDoc.exists) {
+  if (!userDoc.exists()) {
     const user: UserType = {
       id: id,
       displayName: "test",
