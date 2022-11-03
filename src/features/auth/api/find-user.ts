@@ -10,7 +10,6 @@ export const findUser = async (db: Firestore, firebaseUser: User) => {
   if (!userDoc.exists()) {
     const user: UserType = {
       id: id,
-      displayName: "test",
     };
     await setDoc(userDoc.ref, {
       ...user,
