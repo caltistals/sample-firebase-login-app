@@ -4,7 +4,6 @@ import { UserType } from "../../users/types";
 
 export const findUser = async (db: Firestore, firebaseUser: User) => {
   const id = firebaseUser.uid;
-  let displayName: string | null = null;
 
   let theUser: UserType | null = null;
   const userDoc = await getDoc(doc(collection(db, "users"), id));
