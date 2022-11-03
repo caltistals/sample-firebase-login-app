@@ -15,16 +15,12 @@ const App = () => {
   );
 };
 
-const Test = () => {
-  return <div>test</div>;
-};
-
 export const privateRoutes = [
   {
     path: "app",
     element: <App />,
     children: [
-      { path: "", element: <UserSettings /> },
+      { path: "", element: null },
       { path: "*", element: <Navigate to="." /> },
     ],
   },
