@@ -1,6 +1,6 @@
 import { collection, Firestore, getDoc, doc, setDoc } from "firebase/firestore";
 import { User } from "firebase/auth";
-import { UserType } from "./models/user";
+import { UserType } from "../../users/types";
 
 export const findUser = async (db: Firestore, firebaseUser: User) => {
   const id = firebaseUser.uid;

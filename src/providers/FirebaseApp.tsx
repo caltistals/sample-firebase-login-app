@@ -4,8 +4,8 @@ import React from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { app } from "../firebase-config";
-import { UserType } from "../services/models/user";
-import { findUser } from "../services/find-user";
+import { UserType } from "../features/users/types";
+import { findUser } from "../features/auth/api/find-user";
 import { FirebaseContext, UserContext } from "../contexts";
 
 const FirebaseApp: FC<{ children: React.ReactNode }> = ({ children }) => {

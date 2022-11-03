@@ -1,8 +1,11 @@
-import { Button } from "@mantine/core";
-import AuthForm from "./components/AuthForm";
-
+import { AppProvider } from "./providers/app";
+import { AppRoutes } from "./routes";
 function App() {
-  return <AuthForm></AuthForm>;
+  return (
+    <AppProvider>
+      <AppRoutes />
+    </AppProvider>
+  );
 }
 
 export default App;

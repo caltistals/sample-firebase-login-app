@@ -1,6 +1,6 @@
 import { Auth } from "firebase/auth";
 import { createContext } from "react";
-import { UserType } from "./services/models/user";
+import { UserType } from "./features/users/types";
 import { Firestore } from "firebase/firestore";
 
 type FirebaseContextValue = {

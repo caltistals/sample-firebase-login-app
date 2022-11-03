@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { UserContext } from "../contexts";
-import UserSettings from "../features/user/components/UserSettings";
+import UserSettings from "../features/users/components/UserSettings";
 
 const App = () => {
   const { user } = useContext(UserContext);
