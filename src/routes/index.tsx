@@ -3,11 +3,15 @@ import { useContext } from "react";
 import { UserContext } from "../contexts";
 import { privateRoutes } from "./private";
 import { publicRoutes } from "./public";
+import { profileUndefinedRoutes } from "./profileUndefined";
 
 export const AppRoutes = () => {
-  const userContext = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
-  const routes = userContext.user ? privateRoutes : publicRoutes;
+  let routes = user ? privateRoutes : publicRoutes;
+  if (!user?.displayName) {
+    routes = profileUndefinedRoutes;
+  }
 
   const element = useRoutes([...routes]);
 

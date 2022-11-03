@@ -1,5 +1,19 @@
-import { useState } from "react";
-import { ColorPicker, Avatar } from "@mantine/core";
+import { useContext, useState } from "react";
+import {
+  ColorPicker,
+  Avatar,
+  Container,
+  Title,
+  Paper,
+  TextInput,
+  Stack,
+  Button,
+} from "@mantine/core";
+import { useNavigate } from "react-router-dom";
+import { FirebaseContext, UserContext } from "../../../contexts";
+import { useForm } from "@mantine/form";
+import { writeUser } from "../api/write-user";
+import { Firestore } from "firebase/firestore";
 
 const UserSettings = () => {
   const colorMap = {
@@ -12,18 +26,60 @@ const UserSettings = () => {
     "#fd7e14": "orange.6",
   };
   const [colorValue, onChange] = useState<keyof typeof colorMap>("#e03131");
+  const navigate = useNavigate();
+  const { db } = useContext(FirebaseContext);
+  const { user } = useContext(UserContext);
+
+  const form = useForm({
+    initialValues: {
+      username: "",
+    },
+    validate: {
+      username: (value) =>
+        value.length < 1 || value.length > 10
+          ? "1-10文字で設定してください"
+          : null,
+    },
+  });
 
   return (
-    <>
-      <ColorPicker
-        format="hex"
-        value={colorValue}
-        onChange={onChange as any}
-        withPicker={false}
-        swatches={[...Object.keys(colorMap)]}
-      />
-      <Avatar color={colorMap[colorValue]} radius="xl" />
-    </>
+    <Container size={400} my={40}>
+      <Paper p="xl" mx="auto" my="lg" withBorder>
+        <Title align="center" color="cyan.9" mb="lg">
+          ユーザー設定
+        </Title>
+        <form
+          onSubmit={form.onSubmit(async (values) => {
+            await writeUser(db as Firestore, {
+              ...user,
+              displayName: values.username,
+              avatarColor: colorMap[colorValue],
+            });
+          })}
+        >
+          <Stack>
+            <TextInput
+              withAsterisk
+              label="ユーザー名"
+              placeholder="1-10文字"
+              {...form.getInputProps("username")}
+            />
+            <Avatar color={colorMap[colorValue]} radius="xl" variant="filled" />
+            <ColorPicker
+              fullWidth
+              format="hex"
+              value={colorValue}
+              onChange={onChange as any}
+              withPicker={false}
+              swatches={[...Object.keys(colorMap)]}
+            />
+            <Button type="submit" color="cyan.6" mt="xl" fullWidth>
+              次へ
+            </Button>
+          </Stack>
+        </form>
+      </Paper>
+    </Container>
   );
 };
 
