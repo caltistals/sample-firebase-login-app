@@ -8,6 +8,8 @@ import {
   TextInput,
   Stack,
   Button,
+  Text,
+  Group,
 } from "@mantine/core";
 import { useNavigate } from "react-router-dom";
 import { FirebaseContext, UserContext } from "../../../contexts";
@@ -45,8 +47,8 @@ const UserSettings = () => {
   return (
     <Container size={400} my={40}>
       <Paper p="xl" mx="auto" my="lg" withBorder>
-        <Title align="center" color="cyan.9" mb="lg">
-          ユーザー設定
+        <Title order={2} align="center" color="cyan.5" mb="lg">
+          プロフィールを設定
         </Title>
         <form
           onSubmit={form.onSubmit(async (values) => {
@@ -58,13 +60,26 @@ const UserSettings = () => {
           })}
         >
           <Stack>
+            <Text size="md" weight={700}>
+              ユーザー名を設定
+            </Text>
             <TextInput
               withAsterisk
               label="ユーザー名"
               placeholder="1-10文字"
               {...form.getInputProps("username")}
             />
-            <Avatar color={colorMap[colorValue]} radius="xl" variant="filled" />
+            <Text size="md" weight={700}>
+              アバターの色を設定
+            </Text>
+            <Group position="center">
+              <Avatar
+                color={colorMap[colorValue]}
+                radius="xl"
+                variant="filled"
+              />
+            </Group>
+
             <ColorPicker
               fullWidth
               format="hex"
@@ -73,7 +88,7 @@ const UserSettings = () => {
               withPicker={false}
               swatches={[...Object.keys(colorMap)]}
             />
-            <Button type="submit" color="cyan.6" mt="xl" fullWidth>
+            <Button type="submit" color="cyan.6" mt="xl">
               次へ
             </Button>
           </Stack>
