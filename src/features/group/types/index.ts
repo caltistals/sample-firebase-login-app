@@ -4,6 +4,7 @@ import { UserType } from "../../users/types/index";
 export type GroupType = {
   groupId: string;
   groupName: string;
-  users?: UserType[];
+  users: UserType[];
+  creator: UserType;
   createdAt: Timestamp;
 };
