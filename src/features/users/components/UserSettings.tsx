@@ -57,6 +57,7 @@ const UserSettings = () => {
               displayName: values.username,
               avatarColor: colorMap[colorValue],
             });
+            navigate("/group/join");
           })}
         >
           <Stack>
