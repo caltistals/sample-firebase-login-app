@@ -4,6 +4,7 @@ import { UserContext } from "../contexts";
 import { privateRoutes } from "./private";
 import { publicRoutes } from "./public";
 import { profileUndefinedRoutes } from "./profileUndefined";
+import { groupUndefinedRoutes } from "./groupUndefined";
 
 export const AppRoutes = () => {
   const { user } = useContext(UserContext);
@@ -11,6 +12,8 @@ export const AppRoutes = () => {
   let routes = user ? privateRoutes : publicRoutes;
   if (!user?.displayName) {
     routes = profileUndefinedRoutes;
+  } else if (!user?.groupId) {
+    routes = groupUndefinedRoutes;
   }
 
   const element = useRoutes([...routes]);
