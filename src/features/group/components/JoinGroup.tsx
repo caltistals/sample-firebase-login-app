@@ -1,7 +1,9 @@
 import { Button, Paper, Stack, Text, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import { useNavigate } from "react-router-dom";
 
 const JoinGroup = () => {
+  const navigate = useNavigate();
   const form = useForm({
     initialValues: {
       groupId: "",
@@ -32,7 +34,16 @@ const JoinGroup = () => {
           参加
         </Button>
       </form>
-      <Button color="cyan.3" fullWidth>
+      <Text size="lg" weight={500}>
+        または
+      </Text>
+      <Button
+        color="cyan.3"
+        onClick={() => {
+          navigate("/group/create");
+        }}
+        fullWidth
+      >
         新しくグループを作成
       </Button>
     </Paper>
