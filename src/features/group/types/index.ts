@@ -6,5 +6,5 @@ export type GroupType = {
   groupName: string;
   users: UserType[];
   creator: UserType;
-  createdAt: Timestamp;
+  createdAt?: Timestamp;
 };
