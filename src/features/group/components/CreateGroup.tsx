@@ -1,17 +1,24 @@
 import { Button, Paper, Stack, Text, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import { Firestore } from "firebase/firestore";
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { FirebaseContext, UserContext } from "../../../contexts";
+import { UserType } from "../../users/types";
+import { createGroup } from "../api/create-group";
 
 const CreateGroup = () => {
   const navigate = useNavigate();
+  const { user } = useContext(UserContext);
+  const { db } = useContext(FirebaseContext);
   const form = useForm({
     initialValues: {
       groupName: "",
     },
     validate: {
       groupName: (value) =>
-        value.length <= 1 && value.length > 10
-          ? "グループ名は1-10文字で設定してください"
+        value.length < 2 || value.length > 10
+          ? "グループ名は2-10文字で設定してください"
           : null,
     },
   });
@@ -21,15 +28,22 @@ const CreateGroup = () => {
         新しくグループを作成する
       </Text>
       <form
-        onSubmit={form.onSubmit((values) => {
-          console.log(values.groupName);
+        onSubmit={form.onSubmit(async (values) => {
+          if (db && user) {
+            await createGroup(
+              db as Firestore,
+              user as UserType,
+              values.groupName
+            );
+          }
+          navigate("/app");
         })}
       >
         <Stack>
           <TextInput
             label="グループ名"
             placeholder="グループ名を入力"
-            {...form.getInputProps("groupId")}
+            {...form.getInputProps("groupName")}
           />
         </Stack>
         <Button type="submit" fullWidth>
