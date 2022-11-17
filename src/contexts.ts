@@ -15,8 +15,10 @@ export const FirebaseContext = createContext<FirebaseContextValue>({
 
 type UserContextValue = {
   user: UserType | null;
+  setUser: ((user: UserType) => void) | null;
 };
 
 export const UserContext = createContext<UserContextValue>({
   user: null,
+  setUser: null,
 });

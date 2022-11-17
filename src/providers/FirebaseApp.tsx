@@ -29,7 +29,9 @@ const FirebaseApp: FC<{ children: React.ReactNode }> = ({ children }) => {
 
   return (
     <FirebaseContext.Provider value={{ auth, db }}>
-      <UserContext.Provider value={{ user }}>{children}</UserContext.Provider>
+      <UserContext.Provider value={{ user, setUser }}>
+        {children}
+      </UserContext.Provider>
     </FirebaseContext.Provider>
   );
 };
