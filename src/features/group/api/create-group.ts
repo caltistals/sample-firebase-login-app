@@ -17,5 +17,7 @@ export const createGroup = async (
     creator: user,
   };
   await setDoc(newGroupRef, newGroup);
-  await writeUser(db, { ...user, groupId: newGroupRef.id });
+  const newUser: UserType = { ...user, groupId: newGroupRef.id };
+  await writeUser(db, newUser);
+  return newUser;
 };
