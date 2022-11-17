@@ -8,12 +8,16 @@ import { groupUndefinedRoutes } from "./groupUndefined";
 
 export const AppRoutes = () => {
   const { user } = useContext(UserContext);
-
-  let routes = user ? privateRoutes : publicRoutes;
-  if (!user?.displayName) {
-    routes = profileUndefinedRoutes;
-  } else if (!user?.groupId) {
-    routes = groupUndefinedRoutes;
+  console.log(user);
+  let routes = publicRoutes;
+  if (user) {
+    if (!user?.displayName) {
+      routes = profileUndefinedRoutes;
+    } else if (!user?.groupId) {
+      routes = groupUndefinedRoutes;
+    } else {
+      routes = privateRoutes;
+    }
   }
 
   const element = useRoutes([...routes]);
