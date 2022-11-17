@@ -20,5 +20,5 @@ export const writeUser = async (db: Firestore, newUser: UserType) => {
     });
     theUser = { ...newUser };
   }
-  return writeUser;
+  return theUser;
 };
