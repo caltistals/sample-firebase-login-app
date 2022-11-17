@@ -9,7 +9,7 @@ import { createGroup } from "../api/create-group";
 
 const CreateGroup = () => {
   const navigate = useNavigate();
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const { db } = useContext(FirebaseContext);
   const form = useForm({
     initialValues: {
@@ -29,12 +29,13 @@ const CreateGroup = () => {
       </Text>
       <form
         onSubmit={form.onSubmit(async (values) => {
-          if (db && user) {
-            await createGroup(
+          if (db && user && setUser) {
+            const newUser = await createGroup(
               db as Firestore,
               user as UserType,
               values.groupName
             );
+            setUser(newUser);
           }
           navigate("/app");
         })}
