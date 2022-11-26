@@ -8,7 +8,6 @@ import { groupUndefinedRoutes } from "./groupUndefined";
 
 export const AppRoutes = () => {
   const { user } = useContext(UserContext);
-  console.log(user);
   let routes = publicRoutes;
   if (user) {
     if (!user?.displayName) {
