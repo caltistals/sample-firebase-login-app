@@ -10,6 +10,7 @@ import {
 } from "@mantine/core";
 import { IconCalendarEvent, IconTruckDelivery } from "@tabler/icons";
 import { FC, PropsWithChildren, useState } from "react";
+import { NavbarLinks } from "./NavbarLinks";
 
 export const Layout: FC<PropsWithChildren> = (props) => {
   const [opened, setOpened] = useState(false);
@@ -24,21 +25,8 @@ export const Layout: FC<PropsWithChildren> = (props) => {
           width={{ sm: 200, lg: 300 }}
           p="xs"
         >
-          <Navbar.Section mt="sm">
-            <Group>
-              <ThemeIcon>
-                <IconCalendarEvent />
-              </ThemeIcon>
-              <Text>晩御飯の予定</Text>
-            </Group>
-          </Navbar.Section>
-          <Navbar.Section mt="md">
-            <Group>
-              <ThemeIcon>
-                <IconTruckDelivery />
-              </ThemeIcon>
-              <Text>荷物の管理</Text>
-            </Group>
+          <Navbar.Section grow mt="sm">
+            <NavbarLinks />
           </Navbar.Section>
         </Navbar>
       }
