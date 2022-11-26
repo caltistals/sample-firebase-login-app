@@ -2,6 +2,8 @@ import { useContext } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { Layout } from "../components/Layout";
 import { UserContext } from "../contexts";
+import { DinnerPlan } from "../features/dinner/components/DinnerPlan";
+import { DinnerPlans } from "../features/dinner/components/DinnerPlans";
 import UserSettings from "../features/users/components/UserSettings";
 
 const App = () => {
@@ -12,6 +14,7 @@ const App = () => {
         private route
         <p>your name is "{user?.displayName}"</p>
         <p>this group's id is{user?.groupId}</p>
+        <DinnerPlans />
         <Outlet />
       </div>
     </Layout>
