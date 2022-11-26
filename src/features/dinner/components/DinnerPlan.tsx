@@ -1,19 +1,23 @@
 import { Accordion, Avatar, Badge, Group, Stack, Text } from "@mantine/core";
 import { FC } from "react";
+import { DinnerPlanType } from "../types";
 
-type AccordionLabelProps = {
+type AccordionProps = {
   avatarColor: string;
+  username: string;
   badgeLabel: "必要" | "不要" | "遅め" | "未定";
-  description: string;
+  description?: string;
 };
-const AccordionLabel: FC<AccordionLabelProps> = ({
+const AccordionLabel: FC<AccordionProps> = ({
   avatarColor,
   badgeLabel,
+  username,
   description,
 }) => {
   return (
     <Group noWrap>
       <Avatar color={avatarColor} radius="xl" size="md" />
+      <Text>{username}</Text>
       <Badge color="green" size="lg" radius="sm">
         {badgeLabel}
       </Badge>
@@ -22,48 +26,22 @@ const AccordionLabel: FC<AccordionLabelProps> = ({
   );
 };
 
-export const DinnerPlan: FC<AccordionLabelProps> = ({
-  avatarColor,
-  badgeLabel,
-  description,
-}) => {
-  return (
-    <div>
-      DinnerPlan
-      <Accordion
-        styles={{
-          item: {
-            // styles added to all items
-            backgroundColor: "#fff",
+type DinnerPlanProps = {
+  dinnerPlan: DinnerPlanType;
+};
 
-            //styles added to expanded item
-            // "&[data-active]": {
-            //   backgroundColor: "#fff",
-            // },
-          },
-        }}
-        chevronPosition="right"
-        variant="contained"
-      >
-        <Accordion.Item value="1">
-          <Accordion.Control>
-            <AccordionLabel
-              avatarColor={avatarColor}
-              badgeLabel={badgeLabel}
-              description={description}
-            />
-          </Accordion.Control>
-          <Accordion.Panel>
-            <Stack>
-              <Avatar color={avatarColor} radius="xl" size="md" />
-              <Badge color="green" size="lg" radius="sm">
-                {badgeLabel}
-              </Badge>
-              {description && <Text>{description}</Text>}
-            </Stack>
-          </Accordion.Panel>
-        </Accordion.Item>
-      </Accordion>
-    </div>
+export const DinnerPlan: FC<DinnerPlanProps> = ({ dinnerPlan }) => {
+  const { user, status, description } = dinnerPlan;
+  return (
+    <Accordion.Item value={user.id as string}>
+      <Accordion.Control>
+        <AccordionLabel
+          avatarColor={user.avatarColor as string}
+          username={user.displayName as string}
+          badgeLabel={status}
+          description={description}
+        />
+      </Accordion.Control>
+    </Accordion.Item>
   );
 };
