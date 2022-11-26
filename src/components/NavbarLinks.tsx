@@ -22,7 +22,7 @@ export const NavbarLink: FC<NavbarLinkProps> = ({
   href,
 }) => {
   return (
-    <Link to={href}>
+    <Link to={href} style={{ textDecoration: "none" }}>
       <UnstyledButton
         sx={(theme) => ({
           display: "block",
@@ -39,7 +39,7 @@ export const NavbarLink: FC<NavbarLinkProps> = ({
           <ThemeIcon color={color} variant="light">
             {icon}
           </ThemeIcon>
-          <Text size="sm">{label}</Text>
+          <Text size="md">{label}</Text>
         </Group>
       </UnstyledButton>
     </Link>
@@ -56,13 +56,13 @@ const linkData = [
   {
     icon: <IconCalendarEvent size={16} />,
     color: "orange",
-    label: "晩御飯の予定管理",
+    label: "晩御飯の予定",
     href: "/app/dinner",
   },
   {
     icon: <IconTruck size={16} />,
     color: "teal",
-    label: "荷物の管理",
+    label: "荷物",
     href: "/app/parcel",
   },
   {
