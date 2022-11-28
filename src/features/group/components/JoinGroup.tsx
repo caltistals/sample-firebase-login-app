@@ -43,6 +43,7 @@ const JoinGroup = () => {
             onSubmit={form.onSubmit(async (values) => {
               if (db && user && setUser) {
                 const group = await findGroup(db as Firestore, values.groupId);
+                // todo:該当するグループが無かった際にトーストを表示させるように
                 setGroupData(group);
               }
             })}
