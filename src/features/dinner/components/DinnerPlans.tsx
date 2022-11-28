@@ -1,5 +1,8 @@
 import { Accordion, Text } from "@mantine/core";
-import { useState } from "react";
+import { Firestore } from "firebase/firestore";
+import { useContext, useEffect, useState } from "react";
+import { FirebaseContext, UserContext } from "../../../contexts";
+import { readDinnerPlans } from "../api/read-dinnerPlans";
 import { DinnerPlanType } from "../types";
 import { DinnerPlan } from "./DinnerPlan";
 
@@ -35,6 +38,15 @@ const DINNERPLANS: DinnerPlanType[] = [
 
 export const DinnerPlans = () => {
   const [dinnerPlans, setDinnerPlans] = useState<DinnerPlanType[] | null>(null);
+  const { db } = useContext(FirebaseContext);
+  const { user } = useContext(UserContext);
+  useEffect(() => {
+    setDinnerPlans(DINNERPLANS);
+    if (user && user.groupId) {
+      readDinnerPlans(db as Firestore, user.groupId, "2022-11-27");
+    }
+  }, []);
+
   return (
     <>
       {dinnerPlans ? (
@@ -46,17 +58,22 @@ export const DinnerPlans = () => {
                 // styles added to all items
                 backgroundColor: "#fff",
 
-                //styles added to expanded item
-                // "&[data-active]": {
-                //   backgroundColor: "#fff",
-                // },
+                // styles added to expanded item
+                "&[data-active]": {
+                  backgroundColor: "#ffd803",
+                },
+              },
+            }}
+            sx={{
+              "&:hover": {
+                backgroundColor: "#ffd803",
               },
             }}
             chevronPosition="right"
             variant="contained"
           >
             {dinnerPlans.map((dinnerPlan) => (
-              <DinnerPlan dinnerPlan={dinnerPlan} />
+              <DinnerPlan dinnerPlan={dinnerPlan} key={dinnerPlan.user.id} />
             ))}
           </Accordion>
         </div>
