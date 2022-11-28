@@ -26,6 +26,28 @@ const AccordionLabel: FC<AccordionProps> = ({
   );
 };
 
+const AccordionPanel: FC<AccordionProps> = ({
+  avatarColor,
+  badgeLabel,
+  username,
+  description,
+}) => {
+  return (
+    <Accordion.Panel>
+      <Stack>
+        <Group>
+          <Text>{username}</Text>
+          <Avatar color={avatarColor} radius="xl" size="md" />
+        </Group>
+        <Badge color="green" size="lg" radius="sm">
+          {badgeLabel}
+        </Badge>
+        {description && <Text>{description}</Text>}
+      </Stack>
+    </Accordion.Panel>
+  );
+};
+
 type DinnerPlanProps = {
   dinnerPlan: DinnerPlanType;
 };
@@ -36,6 +58,12 @@ export const DinnerPlan: FC<DinnerPlanProps> = ({ dinnerPlan }) => {
     <Accordion.Item value={user.id as string}>
       <Accordion.Control>
         <AccordionLabel
+          avatarColor={user.avatarColor as string}
+          username={user.displayName as string}
+          badgeLabel={status}
+          description={description}
+        />
+        <AccordionPanel
           avatarColor={user.avatarColor as string}
           username={user.displayName as string}
           badgeLabel={status}
