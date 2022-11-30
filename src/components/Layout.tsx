@@ -8,7 +8,11 @@ import {
   Text,
   ThemeIcon,
 } from "@mantine/core";
-import { IconCalendarEvent, IconTruckDelivery } from "@tabler/icons";
+import {
+  IconCalendarEvent,
+  IconPinned,
+  IconTruckDelivery,
+} from "@tabler/icons";
 import { FC, PropsWithChildren, useState } from "react";
 import { NavbarLinks } from "./NavbarLinks";
 
@@ -24,6 +28,12 @@ export const Layout: FC<PropsWithChildren> = (props) => {
           hidden={!opened}
           width={{ sm: 200, lg: 300 }}
           p="xs"
+          styles={() => ({
+            root: {
+              backgroundColor: "#e3f6f5",
+              color: "#272343",
+            },
+          })}
         >
           <Navbar.Section grow mt="sm">
             <NavbarLinks />
@@ -31,7 +41,16 @@ export const Layout: FC<PropsWithChildren> = (props) => {
         </Navbar>
       }
       header={
-        <Header height={60} p="xs">
+        <Header
+          height={60}
+          p="xs"
+          styles={() => ({
+            root: {
+              backgroundColor: "#bae8e8",
+              color: "#272343",
+            },
+          })}
+        >
           <div
             style={{ display: "flex", alignItems: "center", height: "100%" }}
           >
@@ -43,11 +62,17 @@ export const Layout: FC<PropsWithChildren> = (props) => {
                 mr="xl"
               />
             </MediaQuery>
-            <Text>Application header</Text>
+            <IconPinned size={30} />
+            <Text size="xl" weight={700}>
+              JIKKABAN
+            </Text>
           </div>
         </Header>
       }
       styles={(theme) => ({
+        body: {
+          backgroundColor: "#bae8e8",
+        },
         main: {
           backgroundColor:
             theme.colorScheme === "dark"
