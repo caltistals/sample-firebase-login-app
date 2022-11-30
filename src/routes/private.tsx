@@ -4,6 +4,8 @@ import { Layout } from "../components/Layout";
 import { UserContext } from "../contexts";
 import { DinnerPlan } from "../features/dinner/components/DinnerPlan";
 import { DinnerPlans } from "../features/dinner/components/DinnerPlans";
+import { DinnerPlansWithCalendar } from "../features/dinner/components/DinnerPlansWithCalendar";
+import { DinnerRoutes } from "../features/dinner/routes/DinnerRoutes";
 import UserSettings from "../features/users/components/UserSettings";
 
 const App = () => {
@@ -12,13 +14,14 @@ const App = () => {
     <Layout>
       <div>
         private route
-        <p>your name is "{user?.displayName}"</p>
-        <p>this group's id is{user?.groupId}</p>
-        <DinnerPlans />
         <Outlet />
       </div>
     </Layout>
   );
+};
+
+const Home = () => {
+  return <DinnerPlans />;
 };
 
 export const privateRoutes = [
@@ -26,8 +29,9 @@ export const privateRoutes = [
     path: "app",
     element: <App />,
     children: [
-      { path: "", element: null },
-      { path: "*", element: <Navigate to="." /> },
+      { path: "", element: <Home /> },
+      { path: "dinner/*", element: <DinnerRoutes /> },
+      { path: "*", element: <Navigate to="" /> },
     ],
   },
   {
