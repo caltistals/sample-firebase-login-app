@@ -5,6 +5,7 @@ import { FirebaseContext, UserContext } from "../../../contexts";
 import { readDinnerPlans } from "../api/read-dinnerPlans";
 import { DinnerPlanType } from "../types";
 import { DinnerPlan } from "./DinnerPlan";
+import dayjs from "dayjs";
 
 const DINNERPLANS: DinnerPlanType[] = [
   {
@@ -40,6 +41,7 @@ export const DinnerPlans = () => {
   const [dinnerPlans, setDinnerPlans] = useState<DinnerPlanType[] | null>(null);
   const { db } = useContext(FirebaseContext);
   const { user } = useContext(UserContext);
+  const date = new Date();
   useEffect(() => {
     setDinnerPlans(DINNERPLANS);
     if (user && user.groupId) {
@@ -49,24 +51,21 @@ export const DinnerPlans = () => {
 
   return (
     <>
+      <Text size="xl" mb="md" weight={700}>
+        {dayjs(date).format("YYYY年MM月DD日")}の予定
+      </Text>
       {dinnerPlans ? (
         <div>
-          DinnerPlan
           <Accordion
             styles={{
               item: {
                 // styles added to all items
                 backgroundColor: "#fff",
 
-                // styles added to expanded item
-                "&[data-active]": {
-                  backgroundColor: "#ffd803",
-                },
-              },
-            }}
-            sx={{
-              "&:hover": {
-                backgroundColor: "#ffd803",
+                // // styles added to expanded item
+                // "&[data-active]": {
+                //   backgroundColor: "#ffd803",
+                // },
               },
             }}
             chevronPosition="right"
