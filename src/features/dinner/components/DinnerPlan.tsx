@@ -36,8 +36,8 @@ const AccordionPanel: FC<AccordionProps> = ({
     <Accordion.Panel>
       <Stack>
         <Group>
-          <Text>{username}</Text>
           <Avatar color={avatarColor} radius="xl" size="md" />
+          <Text>{username}</Text>
         </Group>
         <Badge color="green" size="lg" radius="sm">
           {badgeLabel}
@@ -63,13 +63,13 @@ export const DinnerPlan: FC<DinnerPlanProps> = ({ dinnerPlan }) => {
           badgeLabel={status}
           description={description}
         />
-        <AccordionPanel
-          avatarColor={user.avatarColor as string}
-          username={user.displayName as string}
-          badgeLabel={status}
-          description={description}
-        />
       </Accordion.Control>
+      <AccordionPanel
+        avatarColor={user.avatarColor as string}
+        username={user.displayName as string}
+        badgeLabel={status}
+        description={description}
+      />
     </Accordion.Item>
   );
 };
