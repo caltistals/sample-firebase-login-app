@@ -7,15 +7,12 @@ import {
   Text,
   Textarea,
 } from "@mantine/core";
-import { useForm } from "@mantine/form";
-import { showNotification } from "@mantine/notifications";
-import React, { useState } from "react";
-import { FirebaseContext, UserContext } from "../../../contexts";
-import { writeDinnerPlan } from "../api/write-dinner-plan";
-import { useContext } from "react";
-import { DinnerPlanType } from "../types";
+
+import React from "react";
+
 import dayjs from "dayjs";
 import "dayjs/locale/ja";
+import useCreateDinnerPlan from "../hooks/useCreateDinnerPlan";
 
 type Props = {
   opened: boolean;
@@ -23,67 +20,20 @@ type Props = {
   date: string;
 };
 
-type FormValue = {
-  status: "必要" | "不要" | "遅め" | "未定";
-  detail: string;
-};
-
 export const CreateDinnerPlanModal = ({ opened, setOpened, date }: Props) => {
-  const { db } = useContext(FirebaseContext);
-  const { user } = useContext(UserContext);
-  const [isLoading, setIsLoading] = useState(false);
-  const form = useForm<FormValue>({
-    initialValues: {
-      status: "必要",
-      detail: "",
-    },
-    validate: {
-      detail: (value) =>
-        value.length > 140 ? "140文字以内で入力してください" : null,
-    },
-  });
+  const { isLoading, form, handleSubmit, handleClose } = useCreateDinnerPlan(
+    setOpened,
+    date
+  );
   return (
     <>
       <Modal
         opened={opened}
-        onClose={() => {
-          setOpened(false);
-          form.reset();
-        }}
+        onClose={handleClose}
         title="晩御飯の予定を追加する"
       >
         <LoadingOverlay visible={isLoading} overlayBlur={2} />
-        <form
-          onSubmit={form.onSubmit(async (values) => {
-            setIsLoading(true);
-            try {
-              if (user && db) {
-                const newDinnerPlan: DinnerPlanType = {
-                  status: values.status,
-                  description: values.detail,
-                  user: user,
-                };
-                await writeDinnerPlan(
-                  db,
-                  newDinnerPlan,
-                  dayjs(date).format("YYYY-MM-DD")
-                );
-                setIsLoading(false);
-                showNotification({
-                  message: "作成に成功しました！",
-                  color: "green",
-                });
-                setOpened(false);
-              }
-            } catch (error) {
-              showNotification({
-                message: "エラーが発生しました。",
-                color: "red",
-              });
-              setIsLoading(false);
-            }
-          })}
-        >
+        <form onSubmit={handleSubmit}>
           <Text mb={20}>日付：{dayjs(date).format("YYYY年MM月DD日")}</Text>
           <SegmentedControl
             data={[
