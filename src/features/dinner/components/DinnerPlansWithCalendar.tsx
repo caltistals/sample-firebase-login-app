@@ -95,7 +95,7 @@ export const DinnerPlansWithCalendar = () => {
       <CreateDinnerPlanModal
         opened={opened}
         setOpened={setOpened}
-        date={dayjs(date).format("YYYY年MM月DD日")}
+        date={dayjs(date).format("YYYY-MM-DD")}
       />
       <ActionIcon
         style={{
