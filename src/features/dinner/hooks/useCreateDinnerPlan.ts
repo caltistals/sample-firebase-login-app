@@ -45,6 +45,7 @@ const useCreateDinnerPlan = (
           newDinnerPlan,
           dayjs(date).format("YYYY-MM-DD")
         );
+        form.reset();
         setIsLoading(false);
         showNotification({
           message: "作成に成功しました！",
