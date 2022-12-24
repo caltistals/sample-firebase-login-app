@@ -108,6 +108,7 @@ export const DinnerPlansWithCalendar = () => {
         radius="xl"
         variant="filled"
         onClick={() => setOpened(true)}
+        color="cyan"
       >
         <IconPlus size={30} />
       </ActionIcon>
