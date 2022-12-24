@@ -1,4 +1,11 @@
-import { Accordion, ActionIcon, Center, Text } from "@mantine/core";
+import {
+  Accordion,
+  ActionIcon,
+  Center,
+  Loader,
+  LoadingOverlay,
+  Text,
+} from "@mantine/core";
 import { Firestore } from "firebase/firestore";
 import { useContext, useEffect, useState } from "react";
 import { FirebaseContext, UserContext } from "../../../contexts";
@@ -11,48 +18,28 @@ import dayjs from "dayjs";
 import { IconPlus } from "@tabler/icons";
 import { CreateDinnerPlanModal } from "./CreateDinnerPlanModal";
 
-const DINNERPLANS: DinnerPlanType[] = [
-  {
-    status: "不要",
-    description: "外食します",
-    user: {
-      id: "11112341",
-      displayName: "aaaaaa",
-      avatarColor: "green.3",
-    },
-  },
-  {
-    status: "遅め",
-    description: "仕事で遅れます",
-    user: {
-      id: "111123423",
-      displayName: "abcde",
-      avatarColor: "blue.3",
-    },
-  },
-  {
-    status: "必要",
-    description: "",
-    user: {
-      id: "1112321",
-      displayName: "oooook",
-      avatarColor: "red.3",
-    },
-  },
-];
-
 export const DinnerPlansWithCalendar = () => {
   const [dinnerPlans, setDinnerPlans] = useState<DinnerPlanType[] | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [opened, setOpened] = useState(false);
   const [date, setDate] = useState(new Date());
   const { db } = useContext(FirebaseContext);
   const { user } = useContext(UserContext);
   useEffect(() => {
-    setDinnerPlans(DINNERPLANS);
-    if (user && user.groupId) {
-      readDinnerPlans(db as Firestore, user.groupId, "2022-11-27");
-    }
-  }, []);
+    (async () => {
+      setIsLoading(true);
+      if (user && user.groupId) {
+        const data = await readDinnerPlans(
+          db as Firestore,
+          user.groupId,
+          dayjs(date).format("YYYY-MM-DD")
+        );
+        if (data?.length) setDinnerPlans(data);
+        else setDinnerPlans(null);
+      }
+      setIsLoading(false);
+    })();
+  }, [date]);
 
   return (
     <>
@@ -67,31 +54,37 @@ export const DinnerPlansWithCalendar = () => {
       <Text size="xl" weight={700}>
         {dayjs(date).format("YYYY年MM月DD日")}の予定
       </Text>
+      <>
+        {isLoading && (
+          <Center>
+            <Loader />
+          </Center>
+        )}
+        {!isLoading && dinnerPlans ? (
+          <div>
+            <Accordion
+              styles={{
+                item: {
+                  // styles added to all items
+                  backgroundColor: "#fff",
 
-      {dinnerPlans ? (
-        <div>
-          <Accordion
-            styles={{
-              item: {
-                // styles added to all items
-                backgroundColor: "#fff",
-
-                // // styles added to expanded item
-                // "&[data-active]": {
-                //   backgroundColor: "#ffd803",
-                // },
-              },
-            }}
-            chevronPosition="right"
-          >
-            {dinnerPlans.map((dinnerPlan) => (
-              <DinnerPlan dinnerPlan={dinnerPlan} key={dinnerPlan.user.id} />
-            ))}
-          </Accordion>
-        </div>
-      ) : (
-        <Text>登録されている予定はありません</Text>
-      )}
+                  // // styles added to expanded item
+                  // "&[data-active]": {
+                  //   backgroundColor: "#ffd803",
+                  // },
+                },
+              }}
+              chevronPosition="right"
+            >
+              {dinnerPlans.map((dinnerPlan) => (
+                <DinnerPlan dinnerPlan={dinnerPlan} key={dinnerPlan.user.id} />
+              ))}
+            </Accordion>
+          </div>
+        ) : (
+          <Text>登録されている予定はありません</Text>
+        )}
+      </>
       <CreateDinnerPlanModal
         opened={opened}
         setOpened={setOpened}
