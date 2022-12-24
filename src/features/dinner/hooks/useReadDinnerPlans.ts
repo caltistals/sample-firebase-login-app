@@ -1,7 +1,7 @@
 import { Firestore } from "firebase/firestore";
 import { useContext, useEffect, useState } from "react";
 import { FirebaseContext, UserContext } from "../../../contexts";
-import { readDinnerPlans } from "../api/read-dinnerPlans";
+import { readDinnerPlans } from "../api/read-dinner-plans";
 import { DinnerPlanType } from "../types";
 import "dayjs/locale/ja";
 import dayjs from "dayjs";

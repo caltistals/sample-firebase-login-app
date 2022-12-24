@@ -30,7 +30,7 @@ const UserSettings = () => {
   const [colorValue, onChange] = useState<keyof typeof colorMap>("#e03131");
   const navigate = useNavigate();
   const { db } = useContext(FirebaseContext);
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
   const form = useForm({
     initialValues: {
@@ -52,12 +52,15 @@ const UserSettings = () => {
         </Title>
         <form
           onSubmit={form.onSubmit(async (values) => {
-            await writeUser(db as Firestore, {
-              ...user,
-              displayName: values.username,
-              avatarColor: colorMap[colorValue],
-            });
-            navigate("/group/join");
+            if (db && user && setUser) {
+              const newUser = await writeUser(db as Firestore, {
+                ...user,
+                displayName: values.username,
+                avatarColor: colorMap[colorValue],
+              });
+              setUser(newUser);
+              navigate("/group/join");
+            }
           })}
         >
           <Stack>
