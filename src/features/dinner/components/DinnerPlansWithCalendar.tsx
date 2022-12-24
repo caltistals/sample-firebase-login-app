@@ -1,4 +1,4 @@
-import { Accordion, Center, Container, Group, Text } from "@mantine/core";
+import { Accordion, ActionIcon, Center, Text } from "@mantine/core";
 import { Firestore } from "firebase/firestore";
 import { useContext, useEffect, useState } from "react";
 import { FirebaseContext, UserContext } from "../../../contexts";
@@ -8,6 +8,8 @@ import { DinnerPlan } from "./DinnerPlan";
 import "dayjs/locale/ja";
 import { Calendar } from "@mantine/dates";
 import dayjs from "dayjs";
+import { IconPlus } from "@tabler/icons";
+import { CreateDinnerPlanModal } from "./CreateDinnerPlanModal";
 
 const DINNERPLANS: DinnerPlanType[] = [
   {
@@ -41,6 +43,7 @@ const DINNERPLANS: DinnerPlanType[] = [
 
 export const DinnerPlansWithCalendar = () => {
   const [dinnerPlans, setDinnerPlans] = useState<DinnerPlanType[] | null>(null);
+  const [opened, setOpened] = useState(false);
   const [date, setDate] = useState(new Date());
   const { db } = useContext(FirebaseContext);
   const { user } = useContext(UserContext);
@@ -89,6 +92,26 @@ export const DinnerPlansWithCalendar = () => {
       ) : (
         <Text>登録されている予定はありません</Text>
       )}
+      <CreateDinnerPlanModal
+        opened={opened}
+        setOpened={setOpened}
+        date={dayjs(date).format("YYYY-MM-DD")}
+      />
+      <ActionIcon
+        style={{
+          position: "fixed",
+          width: "60px",
+          height: "60px",
+          bottom: "40px",
+          right: "40px",
+        }}
+        radius="xl"
+        variant="filled"
+        onClick={() => setOpened(true)}
+        color="cyan"
+      >
+        <IconPlus size={30} />
+      </ActionIcon>
     </>
   );
 };
