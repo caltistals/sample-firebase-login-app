@@ -1,45 +1,15 @@
-import {
-  Accordion,
-  ActionIcon,
-  Center,
-  Loader,
-  LoadingOverlay,
-  Text,
-} from "@mantine/core";
-import { Firestore } from "firebase/firestore";
-import { useContext, useEffect, useState } from "react";
-import { FirebaseContext, UserContext } from "../../../contexts";
-import { readDinnerPlans } from "../api/read-dinnerPlans";
-import { DinnerPlanType } from "../types";
+import { Accordion, ActionIcon, Center, Loader, Text } from "@mantine/core";
 import { DinnerPlan } from "./DinnerPlan";
 import "dayjs/locale/ja";
 import { Calendar } from "@mantine/dates";
 import dayjs from "dayjs";
 import { IconPlus } from "@tabler/icons";
 import { CreateDinnerPlanModal } from "./CreateDinnerPlanModal";
+import useReadDinnerPlans from "../hooks/useReadDinnerPlans";
 
 export const DinnerPlansWithCalendar = () => {
-  const [dinnerPlans, setDinnerPlans] = useState<DinnerPlanType[] | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [opened, setOpened] = useState(false);
-  const [date, setDate] = useState(new Date());
-  const { db } = useContext(FirebaseContext);
-  const { user } = useContext(UserContext);
-  useEffect(() => {
-    (async () => {
-      setIsLoading(true);
-      if (user && user.groupId) {
-        const data = await readDinnerPlans(
-          db as Firestore,
-          user.groupId,
-          dayjs(date).format("YYYY-MM-DD")
-        );
-        if (data?.length) setDinnerPlans(data);
-        else setDinnerPlans(null);
-      }
-      setIsLoading(false);
-    })();
-  }, [date]);
+  const { dinnerPlans, isLoading, opened, setOpened, date, setDate } =
+    useReadDinnerPlans();
 
   return (
     <>
