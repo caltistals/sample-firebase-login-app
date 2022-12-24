@@ -6,7 +6,7 @@ export const readDinnerPlans = async (
   groupId: string,
   date: string
 ) => {
-  let dinnerPlans: DinnerPlanType[] | null = null;
+  let dinnerPlans: DinnerPlanType[] = [];
   const dinnerPlansDocs = await getDocs(
     collection(
       db,
@@ -18,9 +18,10 @@ export const readDinnerPlans = async (
     )
   );
   console.log(dinnerPlansDocs.docs);
-  if (dinnerPlansDocs.empty) {
-    console.log("該当するデータがありません");
-  } else {
-    console.log(dinnerPlansDocs.docs.map((doc) => doc.data()));
+  if (!dinnerPlansDocs.empty) {
+    dinnerPlansDocs.forEach((doc) =>
+      dinnerPlans.push(doc.data() as DinnerPlanType)
+    );
   }
+  return dinnerPlans;
 };
