@@ -13,7 +13,6 @@ const App = () => {
   return (
     <Layout>
       <div>
-        private route
         <Outlet />
       </div>
     </Layout>
