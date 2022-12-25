@@ -7,6 +7,7 @@ import { DinnerPlans } from "../features/dinner/components/DinnerPlans";
 import { DinnerPlansWithCalendar } from "../features/dinner/components/DinnerPlansWithCalendar";
 import { DinnerRoutes } from "../features/dinner/routes/DinnerRoutes";
 import UserSettings from "../features/users/components/UserSettings";
+import { UserProfileRoutes } from "../features/users/routes/UserProfileRoutes";
 
 const App = () => {
   const { user } = useContext(UserContext);
@@ -30,6 +31,7 @@ export const privateRoutes = [
     children: [
       { path: "", element: <Home /> },
       { path: "dinner/*", element: <DinnerRoutes /> },
+      { path: "user/*", element: <UserProfileRoutes /> },
       { path: "*", element: <Navigate to="" /> },
     ],
   },
