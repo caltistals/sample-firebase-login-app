@@ -5,6 +5,7 @@ import {
   Title,
   PasswordInput,
   Button,
+  Divider,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { Auth, createUserWithEmailAndPassword } from "firebase/auth";
@@ -72,6 +73,15 @@ const RegisterForm = () => {
           />
           <Button type="submit" color="cyan.6" mt="xl" fullWidth>
             新規登録
+          </Button>
+          <Divider my="sm" label="または" labelPosition="center" />
+          <Button
+            variant="subtle"
+            color="cyan"
+            fullWidth
+            onClick={() => navigate("/auth/login")}
+          >
+            ログイン
           </Button>
         </form>
       </Paper>
