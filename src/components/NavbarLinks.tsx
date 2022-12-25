@@ -59,12 +59,12 @@ const linkData = [
     label: "晩御飯の予定",
     href: "/app/dinner",
   },
-  {
-    icon: <IconTruck size={16} />,
-    color: "teal",
-    label: "荷物",
-    href: "/app/parcel",
-  },
+  // {
+  //   icon: <IconTruck size={16} />,
+  //   color: "teal",
+  //   label: "荷物",
+  //   href: "/app/parcel",
+  // },
   {
     icon: <IconUser size={16} />,
     color: "violet",
