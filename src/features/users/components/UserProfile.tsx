@@ -1,4 +1,3 @@
-import { useContext } from "react";
 import {
   Avatar,
   Container,
@@ -9,27 +8,11 @@ import {
   Group,
   Card,
 } from "@mantine/core";
-import { useNavigate } from "react-router-dom";
-import { UserContext } from "../../../contexts";
-import { signOut } from "firebase/auth";
-import { auth } from "../../../firebase-config";
-import { showNotification } from "@mantine/notifications";
+
+import useLogout from "../../auth/hooks/useLogout";
 
 const UserProfile = () => {
-  const navigate = useNavigate();
-  const { user } = useContext(UserContext);
-  const handleClick = async () => {
-    signOut(auth)
-      .then(() => {
-        navigate("/auth/login");
-      })
-      .catch(() => {
-        showNotification({
-          message: "ログアウトに失敗しました",
-          color: "red",
-        });
-      });
-  };
+  const { user, handleLogout } = useLogout();
 
   return (
     <Container size={400} my={40}>
@@ -60,7 +43,7 @@ const UserProfile = () => {
           color="red"
           mt="xl"
           variant="outline"
-          onClick={handleClick}
+          onClick={handleLogout}
         >
           ログアウト
         </Button>
