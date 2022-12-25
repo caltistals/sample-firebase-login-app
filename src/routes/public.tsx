@@ -8,6 +8,6 @@ export const publicRoutes = [
   },
   {
     path: "*",
-    element: <Navigate to="/auth/register" />,
+    element: <Navigate to="/auth/login" />,
   },
 ];
