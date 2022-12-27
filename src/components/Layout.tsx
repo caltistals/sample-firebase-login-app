@@ -1,18 +1,12 @@
 import {
   AppShell,
   Burger,
-  Group,
   Header,
   MediaQuery,
   Navbar,
   Text,
-  ThemeIcon,
 } from "@mantine/core";
-import {
-  IconCalendarEvent,
-  IconPinned,
-  IconTruckDelivery,
-} from "@tabler/icons";
+import { IconPinned } from "@tabler/icons";
 import { FC, PropsWithChildren, useState } from "react";
 import { NavbarLinks } from "./NavbarLinks";
 
@@ -36,7 +30,7 @@ export const Layout: FC<PropsWithChildren> = (props) => {
           })}
         >
           <Navbar.Section grow mt="sm">
-            <NavbarLinks />
+            <NavbarLinks setOpened={setOpened} />
           </Navbar.Section>
         </Navbar>
       }
