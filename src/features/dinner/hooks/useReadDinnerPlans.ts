@@ -11,7 +11,7 @@ const useReadDinnerPlans = () => {
   const [dinnerPlans, setDinnerPlans] = useState<DinnerPlanType[] | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [opened, setOpened] = useState(false);
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState<Date | null>(new Date());
   const { db } = useContext(FirebaseContext);
   const { user } = useContext(UserContext);
   useEffect(() => {

@@ -23,3 +23,4 @@ dist-ssr
 *.sw?
 # firestore
 firestore.rules
+.firebase

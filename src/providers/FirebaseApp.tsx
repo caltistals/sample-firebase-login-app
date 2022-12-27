@@ -10,7 +10,7 @@ import { FirebaseContext, UserContext } from "../contexts";
 
 const FirebaseApp: FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<UserType | null>(null);
-  const auth = getAuth();
+  const auth = getAuth(app);
   const db = getFirestore(app);
 
   useEffect(() => {
