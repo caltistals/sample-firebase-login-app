@@ -4,6 +4,7 @@ import {
   IconHome,
   IconTruck,
   IconUser,
+  IconUsers,
 } from "@tabler/icons";
 import { FC, ReactNode } from "react";
 import { Link } from "react-router-dom";
@@ -73,9 +74,15 @@ const linkData = [
   //   href: "/app/parcel",
   // },
   {
+    icon: <IconUsers size={16} />,
+    color: "green",
+    label: "グループ情報",
+    href: "/app/group/information",
+  },
+  {
     icon: <IconUser size={16} />,
     color: "violet",
-    label: "ユーザー",
+    label: "ユーザー情報",
     href: "/app/user",
   },
 ];
