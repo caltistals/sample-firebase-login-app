@@ -6,6 +6,7 @@ import { DinnerPlan } from "../features/dinner/components/DinnerPlan";
 import { DinnerPlans } from "../features/dinner/components/DinnerPlans";
 import { DinnerPlansWithCalendar } from "../features/dinner/components/DinnerPlansWithCalendar";
 import { DinnerRoutes } from "../features/dinner/routes/DinnerRoutes";
+import { GroupInformationRoutes } from "../features/group/routes/GroupInformationRoute";
 import UserSettings from "../features/users/components/UserSettings";
 import { UserProfileRoutes } from "../features/users/routes/UserProfileRoutes";
 
@@ -32,6 +33,7 @@ export const privateRoutes = [
       { path: "", element: <Home /> },
       { path: "dinner/*", element: <DinnerRoutes /> },
       { path: "user/*", element: <UserProfileRoutes /> },
+      { path: "group/*", element: <GroupInformationRoutes /> },
       { path: "*", element: <Navigate to="" /> },
     ],
   },
