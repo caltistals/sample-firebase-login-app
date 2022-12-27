@@ -12,37 +12,11 @@ import {
   CopyButton,
   ActionIcon,
 } from "@mantine/core";
-import { FirebaseContext, UserContext } from "../../../contexts";
-import { useContext, useState, useEffect } from "react";
-
-import { findGroup } from "../api/find-group";
-import { GroupType } from "../types";
-import { showNotification } from "@mantine/notifications";
 import { IconClipboard, IconClipboardCheck } from "@tabler/icons";
+import useGroupInformation from "../hooks/useGroupInformation";
 
 const GroupInformation = () => {
-  const { user } = useContext(UserContext);
-  const { db } = useContext(FirebaseContext);
-  const [groupData, setGroupData] = useState<GroupType | null>();
-  const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    (async () => {
-      setIsLoading(true);
-      if (db && user && user.groupId) {
-        try {
-          const newGroupData = await findGroup(db, user.groupId);
-          setGroupData(newGroupData);
-        } catch (error) {
-          showNotification({
-            message: "グループ情報の取得に失敗しました",
-            color: "red",
-          });
-        }
-      }
-      setIsLoading(false);
-    })();
-  }, []);
+  const { groupData, isLoading } = useGroupInformation();
 
   return (
     <Container size={400} my={40}>
