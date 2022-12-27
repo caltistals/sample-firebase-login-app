@@ -13,6 +13,11 @@ type NavbarLinkProps = {
   color: string;
   label: string;
   href: string;
+  setOpened: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+type NavbarLinksProps = {
+  setOpened: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const NavbarLink: FC<NavbarLinkProps> = ({
@@ -20,6 +25,7 @@ export const NavbarLink: FC<NavbarLinkProps> = ({
   color,
   label,
   href,
+  setOpened,
 }) => {
   return (
     <Link to={href} style={{ textDecoration: "none" }}>
@@ -34,6 +40,7 @@ export const NavbarLink: FC<NavbarLinkProps> = ({
             backgroundColor: theme.colors.gray[0],
           },
         })}
+        onClick={() => setOpened(false)}
       >
         <Group>
           <ThemeIcon color={color} variant="light">
@@ -73,11 +80,11 @@ const linkData = [
   },
 ];
 
-export const NavbarLinks = () => {
+export const NavbarLinks = ({ setOpened }: NavbarLinksProps) => {
   return (
     <div>
       {linkData.map((link) => (
-        <NavbarLink {...link} key={link.label} />
+        <NavbarLink {...link} key={link.label} setOpened={setOpened} />
       ))}
     </div>
   );
