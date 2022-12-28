@@ -1,6 +1,7 @@
 import {
   AppShell,
   Burger,
+  Group,
   Header,
   MediaQuery,
   Navbar,
@@ -8,6 +9,7 @@ import {
 } from "@mantine/core";
 import { IconPinned } from "@tabler/icons";
 import { FC, PropsWithChildren, useState } from "react";
+import { Link } from "react-router-dom";
 import { NavbarLinks } from "./NavbarLinks";
 
 export const Layout: FC<PropsWithChildren> = (props) => {
@@ -56,9 +58,14 @@ export const Layout: FC<PropsWithChildren> = (props) => {
                 mr="xl"
               />
             </MediaQuery>
+            <Link to="/app" style={{ textDecoration: "none", color: "white" }}>
+              <Group spacing="xs">
             <IconPinned size={30} />
             <Text size="xl" weight={700}>
               JIKKABAN
+                </Text>
+              </Group>
+            </Link>
             </Text>
           </div>
         </Header>
