@@ -36,17 +36,16 @@ export const NavbarLink: FC<NavbarLinkProps> = ({
           width: "100%",
           padding: theme.spacing.xs,
           borderRadius: theme.radius.sm,
-          color: theme.black,
+          color: theme.colors.gray[7],
           "&:hover": {
-            backgroundColor: theme.colors.gray[0],
+            backgroundColor: theme.colors.teal[0],
+            color: theme.colors.teal,
           },
         })}
         onClick={() => setOpened(false)}
       >
         <Group>
-          <ThemeIcon color={color} variant="light">
-            {icon}
-          </ThemeIcon>
+          {icon}
           <Text size="md">{label}</Text>
         </Group>
       </UnstyledButton>
@@ -56,13 +55,13 @@ export const NavbarLink: FC<NavbarLinkProps> = ({
 
 const linkData = [
   {
-    icon: <IconHome size={16} />,
+    icon: <IconHome size={20} />,
     color: "blue",
     label: "ホーム",
     href: "/app",
   },
   {
-    icon: <IconCalendarEvent size={16} />,
+    icon: <IconCalendarEvent size={20} />,
     color: "orange",
     label: "晩御飯の予定",
     href: "/app/dinner",
@@ -74,13 +73,13 @@ const linkData = [
   //   href: "/app/parcel",
   // },
   {
-    icon: <IconUsers size={16} />,
+    icon: <IconUsers size={20} />,
     color: "green",
     label: "グループ情報",
     href: "/app/group/information",
   },
   {
-    icon: <IconUser size={16} />,
+    icon: <IconUser size={20} />,
     color: "violet",
     label: "ユーザー情報",
     href: "/app/user",

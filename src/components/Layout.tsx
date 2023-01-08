@@ -1,6 +1,7 @@
 import {
   AppShell,
   Burger,
+  Group,
   Header,
   MediaQuery,
   Navbar,
@@ -8,6 +9,7 @@ import {
 } from "@mantine/core";
 import { IconPinned } from "@tabler/icons";
 import { FC, PropsWithChildren, useState } from "react";
+import { Link } from "react-router-dom";
 import { NavbarLinks } from "./NavbarLinks";
 
 export const Layout: FC<PropsWithChildren> = (props) => {
@@ -22,10 +24,10 @@ export const Layout: FC<PropsWithChildren> = (props) => {
           hidden={!opened}
           width={{ sm: 200, lg: 300 }}
           p="xs"
-          styles={() => ({
+          styles={(theme) => ({
             root: {
-              backgroundColor: "#e3f6f5",
-              color: "#272343",
+              backgroundColor: "white",
+              color: theme.colors.gray[7],
             },
           })}
         >
@@ -38,10 +40,10 @@ export const Layout: FC<PropsWithChildren> = (props) => {
         <Header
           height={60}
           p="xs"
-          styles={() => ({
+          styles={(theme) => ({
             root: {
-              backgroundColor: "#bae8e8",
-              color: "#272343",
+              backgroundColor: theme.colors.cyan[4],
+              color: "white",
             },
           })}
         >
@@ -54,12 +56,17 @@ export const Layout: FC<PropsWithChildren> = (props) => {
                 onClick={() => setOpened((o) => !o)}
                 size="sm"
                 mr="xl"
+                color="white"
               />
             </MediaQuery>
-            <IconPinned size={30} />
-            <Text size="xl" weight={700}>
-              JIKKABAN
-            </Text>
+            <Link to="/app" style={{ textDecoration: "none", color: "white" }}>
+              <Group spacing="xs">
+                <IconPinned size={30} />
+                <Text size="xl" weight={700}>
+                  JIKKABAN
+                </Text>
+              </Group>
+            </Link>
           </div>
         </Header>
       }
@@ -68,10 +75,7 @@ export const Layout: FC<PropsWithChildren> = (props) => {
           backgroundColor: "#bae8e8",
         },
         main: {
-          backgroundColor:
-            theme.colorScheme === "dark"
-              ? theme.colors.dark[8]
-              : theme.colors.gray[0],
+          backgroundColor: theme.colors.gray[0],
         },
       })}
     >
