@@ -76,6 +76,16 @@ const JoinGroup = () => {
                     参加
                   </Button>
                 </Stack>
+                <Button
+                  color="cyan"
+                  variant="subtle"
+                  onClick={() => {
+                    setGroupData(null);
+                  }}
+                  fullWidth
+                >
+                  戻る
+                </Button>
               </>
             ) : (
               <form
