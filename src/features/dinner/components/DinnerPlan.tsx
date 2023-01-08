@@ -21,7 +21,6 @@ const AccordionLabel: FC<AccordionProps> = ({
   avatarColor,
   badgeLabel,
   username,
-  description,
 }) => {
   const badgeColor = getBadgeColor(badgeLabel);
   return (
@@ -31,28 +30,20 @@ const AccordionLabel: FC<AccordionProps> = ({
       <Badge color={badgeColor} size="lg" radius="sm">
         {badgeLabel}
       </Badge>
-      {description && <Text>{description}</Text>}
     </Group>
   );
 };
 
-const AccordionPanel: FC<AccordionProps> = ({
-  avatarColor,
-  badgeLabel,
-  username,
-  description,
-}) => {
+const AccordionPanel: FC<AccordionProps> = ({ description }) => {
   return (
     <Accordion.Panel>
       <Stack>
-        <Group>
-          <Avatar color={avatarColor} radius="xl" size="md" />
-          <Text>{username}</Text>
-        </Group>
-        <Badge color="green" size="lg" radius="sm">
-          {badgeLabel}
-        </Badge>
-        {description && <Text>{description}</Text>}
+        <Text color="dark.2" size="sm">
+          詳細
+        </Text>
+        <Text color={description ? "dark" : "dark.2"}>
+          {description ? description : "詳細はありません"}
+        </Text>
       </Stack>
     </Accordion.Panel>
   );
