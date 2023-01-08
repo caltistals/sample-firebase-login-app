@@ -8,17 +8,27 @@ type AccordionProps = {
   badgeLabel: "必要" | "不要" | "遅め" | "未定";
   description?: string;
 };
+
+const getBadgeColor = (key: AccordionProps["badgeLabel"]) =>
+  new Map<AccordionProps["badgeLabel"], string>([
+    ["不要", "red"],
+    ["必要", "green"],
+    ["遅め", "orange"],
+    ["未定", "gray"],
+  ]).get(key);
+
 const AccordionLabel: FC<AccordionProps> = ({
   avatarColor,
   badgeLabel,
   username,
   description,
 }) => {
+  const badgeColor = getBadgeColor(badgeLabel);
   return (
     <Group noWrap>
       <Avatar color={avatarColor} radius="xl" size="md" />
       <Text>{username}</Text>
-      <Badge color="green" size="lg" radius="sm">
+      <Badge color={badgeColor} size="lg" radius="sm">
         {badgeLabel}
       </Badge>
       {description && <Text>{description}</Text>}
