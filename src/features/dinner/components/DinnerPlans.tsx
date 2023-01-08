@@ -14,6 +14,7 @@ import { DinnerPlan } from "./DinnerPlan";
 import dayjs from "dayjs";
 import useReadDinnerPlans from "../hooks/useReadDinnerPlans";
 import { IconAlertCircle } from "@tabler/icons";
+import LoadingSkeleton from "../../../components/LoadingSkeleton";
 
 export const DinnerPlans = () => {
   const { dinnerPlans, isLoading } = useReadDinnerPlans();
@@ -29,11 +30,7 @@ export const DinnerPlans = () => {
             <Text color="dark.2">{dayjs(date).format("YYYY年MM月DD日")}</Text>
           </Card.Section>
 
-          {isLoading && (
-            <Center>
-              <Loader />
-            </Center>
-          )}
+          {isLoading && <LoadingSkeleton quantity={2} />}
           {!isLoading && dinnerPlans ? (
             <div>
               <Accordion
