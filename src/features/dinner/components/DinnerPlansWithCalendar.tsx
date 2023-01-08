@@ -25,11 +25,7 @@ export const DinnerPlansWithCalendar = () => {
         {dayjs(date).format("YYYY年MM月DD日")}の予定
       </Text>
       <>
-        {isLoading && (
-          <Center>
-            <Loader />
-          </Center>
-        )}
+            {isLoading && <LoadingSkeleton quantity={2} />}
         {!isLoading && dinnerPlans ? (
           <div>
             <Accordion
